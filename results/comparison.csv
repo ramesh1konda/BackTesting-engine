@@ -1,0 +1,6 @@
+Strategy,Return [%],Buy & Hold Return [%],Max Drawdown [%],Sharpe Ratio,Sortino Ratio,Win Rate [%],# Trades,Avg Trade [%],Profit Factor,Exposure [%],Final Equity
+V1: RSI Mean Reversion,289.35,2736.55,-55.03,0.269,0.407,85.2,27.0,5.19,4.43,34.1,38934.8
+V2: Bollinger Bounce,715.34,2682.65,-54.41,0.385,0.593,88.9,81.0,2.59,3.37,50.8,81534.5
+V3: MA + RSI Combo,43.89,2517.03,-9.7,0.268,0.393,37.5,16.0,2.31,3.31,6.0,14389.34
+V4: Multi-TF Mean Reversion,331.09,2682.65,-41.98,0.298,0.456,76.3,76.0,1.94,3.03,32.4,43109.31
+V5: Composite Cycle,181.14,2517.03,-15.62,0.433,0.628,68.1,119.0,0.87,2.03,17.8,28114.28

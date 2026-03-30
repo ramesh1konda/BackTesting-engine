@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: formbuilder-app
+    env: node
+    region: oregon
+    plan: free
+    rootDir: form-builder-app
+    buildCommand: npm install --prefix frontend && npm run build --prefix frontend && npm install --prefix backend
+    startCommand: node backend/server.js
+    envVars:
+      - key: NODE_ENV
+        value: production

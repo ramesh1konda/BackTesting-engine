@@ -192,8 +192,19 @@ app.delete('/api/forms/:formId/submissions/:subId', (req, res) => {
   res.json({ success: true });
 });
 
+// ── Serve React frontend (production build) ───────────────────────────────────
+const frontendDist = path.join(__dirname, '../frontend/dist');
+if (fs.existsSync(frontendDist)) {
+  app.use(express.static(frontendDist));
+  // React Router catch-all — must come after all API routes
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(frontendDist, 'index.html'));
+  });
+}
+
 // ── Start ──────────────────────────────────────────────────────────────────────
 app.listen(PORT, () => {
-  console.log(`\n  FormBuilder API  →  http://localhost:${PORT}`);
-  console.log(`  API Base URL     →  http://localhost:${PORT}/api/forms\n`);
+  const url = process.env.RENDER_EXTERNAL_URL || `http://localhost:${PORT}`;
+  console.log(`\n  FormBuilder  →  ${url}`);
+  console.log(`  API          →  ${url}/api/forms\n`);
 });

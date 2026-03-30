@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python run_all.py:*)",
+      "Bash(dir:*)",
+      "Bash(git add:*)",
+      "WebFetch(domain:developers.kudosity.com)",
+      "mcp__powerbi-modeling-mcp__database_operations",
+      "mcp__powerbi-modeling-mcp__dax_query_operations",
+      "Bash(python3 -c \"import json; f=open\\(''C:/PBIP/AMAL/AMAL Lender Charts.Report/definition/pages/f1e2d3c4b5a6e7d8f9c0/visuals/b2c3d4e5f6a712345678/visual.json''\\); d=json.load\\(f\\); print\\(''JSON valid''\\); print\\(''visualType:'', d[''visual''][''visualType'']\\); print\\(''Y projections:'', len\\(d[''visual''][''query''][''queryState''][''Y''][''projections'']\\)\\); print\\(''dataPoint entries:'', len\\(d[''visual''][''objects''][''dataPoint'']\\)\\); [print\\(''  selector:'', dp[''selector'']\\) for dp in d[''visual''][''objects''][''dataPoint'']]\")",
+      "Bash(npm install:*)",
+      "Bash(npx vite:*)",
+      "Bash(netstat -ano)",
+      "Bash(ls \"D:\\\\BackTesting engine\\\\.claude\"\" 2>/dev/null || echo \"no .claude dir \")",
+      "mcp__Claude_Preview__preview_start",
+      "Bash(curl -s http://localhost:3001/api/forms)",
+      "Bash(curl -v http://localhost:3001/api/forms)"
+    ]
+  }
+}

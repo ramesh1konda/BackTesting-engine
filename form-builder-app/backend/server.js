@@ -105,11 +105,33 @@ app.post('/api/forms/:id/submit', (req, res) => {
   if (!form) return res.status(404).json({ error: 'Form not found' });
 
   const data = req.body;
-  // Validate required fields
+  // Validate fields using validate object (falls back to top-level required)
   const errors = {};
   for (const field of (form.schema?.fields || [])) {
-    if (field.required && field.key && !data[field.key] && data[field.key] !== 0) {
-      errors[field.key] = `${field.label} is required`;
+    if (!field.key) continue;
+    const v = field.validate || {};
+    const isRequired = v.required || field.required;
+    const val = data[field.key];
+    const isEmpty = val === undefined || val === null || val === '' || val === false;
+
+    if (isRequired && isEmpty) {
+      errors[field.key] = v.customMessage || `${field.label} is required`;
+      continue;
+    }
+    if (!isEmpty) {
+      const strVal = String(val);
+      if (v.minLength && strVal.length < Number(v.minLength))
+        errors[field.key] = v.customMessage || `${field.label} must be at least ${v.minLength} characters`;
+      else if (v.maxLength && strVal.length > Number(v.maxLength))
+        errors[field.key] = v.customMessage || `${field.label} must be at most ${v.maxLength} characters`;
+      else if (v.min !== '' && v.min != null && Number(val) < Number(v.min))
+        errors[field.key] = v.customMessage || `${field.label} must be at least ${v.min}`;
+      else if (v.max !== '' && v.max != null && Number(val) > Number(v.max))
+        errors[field.key] = v.customMessage || `${field.label} must be at most ${v.max}`;
+      else if (v.pattern) {
+        try { if (!new RegExp(v.pattern).test(strVal)) errors[field.key] = v.customMessage || `${field.label} has an invalid format`; }
+        catch { /* bad regex — skip */ }
+      }
     }
   }
   if (Object.keys(errors).length > 0) return res.status(422).json({ errors });
